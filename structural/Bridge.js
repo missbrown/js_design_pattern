@@ -18,6 +18,9 @@ var greekGodAdapter = (function() {
     greekGodAdapter.prototype.getName = function() {
         return this.greekGod.name;
     };
+    greekGodAdapter.prototype.getSacrifice = function() {
+        return this.greekGod.sacrifice;
+    };
     greekGodAdapter.prototype.pray = function() {
         console.log("I adorn you, mighty " + this.greekGod.name);
         this.greekGod.sacrifice++;
@@ -82,6 +85,21 @@ var godManager = (function() {
     return godManager;
 })();
 
+var godServer = (function() {
+    function godServer(kinship) {
+        if(kinship === 'Greek') {
+            this.godAdapter = new greekGodAdapter();
+        } else if(kinship === 'Roman') {
+            this.godAdapter = new romanGodAdapter();
+        }
+    }
+    godServer.prototype = Object.create(godManager.prototype);
+    godServer.prototype.showSacrificeTime = function() {
+        console.log(this.godAdapter.getSacrifice());
+    };
+    return godServer;
+})();
+
 var god = new godManager('Greek');
 god.pray();
 god.pray();
@@ -101,3 +119,9 @@ god.pray();
 god.pray();
 god.showMight();
 god.showPower();
+
+var godService = new godServer('Greek');
+godService.pray();
+godService.pray();
+godService.pray();
+godService.showSacrificeTime();
