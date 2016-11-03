@@ -9,9 +9,6 @@ var cell = (function() {
     cell.prototype.cycle = function() {
         this.currentState.next(this);
     };
-    cell.prototype.getState = function() {
-        return this.currentState;
-    };
     cell.prototype.toString = function() {
         return "chromosomeNumber->" + this.chromosomeNumber + "," + "currentState->[" + this.currentState + "]";
     };
